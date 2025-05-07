@@ -169,17 +169,18 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiODMwMjVhOTktYjJiMS00ZGFjLWIyZDEtY2RjNjU1OTZiZThhIiwidGVuYW50X2lkIjoiYTQzZWQyNGVhMGVmMzA5NzY4YWE4MzcwMWJlNGUxZWU5YjJjMzVlZDE2YWRmNzQ3ZWYwZWYyNjZjZjliZWMwMSIsImludGVybmFsX3NlY3JldCI6IjgyYzZmN2RmLTM2ZmEtNGNhNy1iMmRlLWVhNDU5NmUyNTg4MyJ9.8jfx_8hkPrUtOkQqrjam-Y5YanCNiILCYWZoYqbdvGc"
+        "value": null
       }
     }
   },
   "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  name      String?\n  email     String   @unique\n  password  String\n  createdAt DateTime @default(now())\n  notes     Note[]\n}\n\nmodel Note {\n  id        String   @id @default(uuid())\n  title     String?\n  content   String?\n  author    User?    @relation(fields: [authorId], references: [id])\n  authorId  String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
   "inlineSchemaHash": "3f68107268fd610ec7574340ee7144e0b57e9195d1888af50eaed0c28be67c0a",
-  "copyEngine": false
+  "copyEngine": true
 }
 
 const fs = require('fs')
@@ -216,3 +217,9 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "app/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+// file annotations for bundling tools to include these files
+path.join(__dirname, "schema.prisma");
+path.join(process.cwd(), "app/generated/prisma/schema.prisma")
