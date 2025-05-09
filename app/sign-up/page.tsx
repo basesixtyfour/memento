@@ -1,42 +1,25 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useActionState } from "react";
+import { signUpUser } from "../lib/action";
 
 const SignUpPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("/api/sign-up", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const body = await res.json();
-      console.log(body);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  const [error, formAction, isPending] = useActionState(signUpUser, undefined);
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form onSubmit={handleSubmit} className="w-72 flex flex-col">
+      <form action={formAction} className="w-72 flex flex-col">
         <div className="flex flex-col">
           <h2 className="text-2xl font-bold mb-4">Sign-Up</h2>
+
+          {error && <p className="text-red-500 mb-2">{error}</p>}
+
           <label htmlFor="email" className="mb-1">
             Email:
           </label>
           <input
             type="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className="border rounded p-2"
             required
           />
@@ -48,8 +31,6 @@ const SignUpPage: React.FC = () => {
           <input
             type="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className="border rounded p-2 mb-3"
             required
           />

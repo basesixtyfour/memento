@@ -1,35 +1,17 @@
 "use client";
 
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState, useState } from "react";
+import { authenticate } from "@/app/lib/action";
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
-
-    if (res?.error) {
-      setError(res.error);
-    } else {
-      router.push("/");
-    }
-  };
+  const [error, formAction, isPending] = useActionState(
+    authenticate,
+    undefined
+  );
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form onSubmit={handleSubmit} className="w-72 flex flex-col">
+      <form action={formAction} className="w-72 flex flex-col">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
 
         {error && <p className="text-red-500 mb-2">{error}</p>}
@@ -40,8 +22,6 @@ const LoginPage: React.FC = () => {
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           required
           className="mb-3 p-2 border rounded"
         />
@@ -52,8 +32,6 @@ const LoginPage: React.FC = () => {
         <input
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           required
           className="mb-3 p-2 border rounded"
         />
