@@ -20,6 +20,7 @@ export async function verifyUserCredentials(
   password: string
 ): Promise<User | null> {
   const user = await getUser(email);
+
   if (!user) return null;
 
   const passwordsMatch = await bcrypt.compare(password, user.password);
@@ -36,7 +37,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             .object({ email: z.string().email(), password: z.string().min(6) })
             .safeParse(credentials);
 
-          if (!parsed.success) return null;
+          if (!parsed.success) {
+            return null;
+          }
 
           const { email, password } = parsed.data;
 
@@ -44,11 +47,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const user = await verifyUserCredentials(email, password);
             return user;
           } catch (authError) {
-            console.error("Authentication function error:", authError);
             return null;
           }
         } catch (parseError) {
-          console.error("Parsing error:", parseError);
           return null;
         }
       },

@@ -12,7 +12,11 @@ export const authenticate = async (
     await signIn("credentials", formData);
     return undefined;
   } catch (err) {
-    return "Invalid credentials";
+    if (err === "CredentialsSignin") {
+      return "Invalid credentials";
+    }
+
+    throw err;
   }
 };
 

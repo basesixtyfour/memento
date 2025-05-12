@@ -128,18 +128,28 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.NoteScalarFieldEnum = {
+exports.Prisma.PageScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  content: 'content',
-  authorId: 'authorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.BlockScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  properties: 'properties',
+  parentId: 'parentId',
+  pageId: 'pageId'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -152,10 +162,21 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.BlockType = exports.$Enums.BlockType = {
+  text: 'text',
+  to_do: 'to_do',
+  bullet: 'bullet'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Note: 'Note'
+  Page: 'Page',
+  Block: 'Block'
 };
 
 /**

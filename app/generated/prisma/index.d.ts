@@ -19,10 +19,33 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Note
+ * Model Page
  * 
  */
-export type Note = $Result.DefaultSelection<Prisma.$NotePayload>
+export type Page = $Result.DefaultSelection<Prisma.$PagePayload>
+/**
+ * Model Block
+ * 
+ */
+export type Block = $Result.DefaultSelection<Prisma.$BlockPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const BlockType: {
+  text: 'text',
+  to_do: 'to_do',
+  bullet: 'bullet'
+};
+
+export type BlockType = (typeof BlockType)[keyof typeof BlockType]
+
+}
+
+export type BlockType = $Enums.BlockType
+
+export const BlockType: typeof $Enums.BlockType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -160,14 +183,24 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.note`: Exposes CRUD operations for the **Note** model.
+   * `prisma.page`: Exposes CRUD operations for the **Page** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Notes
-    * const notes = await prisma.note.findMany()
+    * // Fetch zero or more Pages
+    * const pages = await prisma.page.findMany()
     * ```
     */
-  get note(): Prisma.NoteDelegate<ExtArgs, ClientOptions>;
+  get page(): Prisma.PageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.block`: Exposes CRUD operations for the **Block** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Blocks
+    * const blocks = await prisma.block.findMany()
+    * ```
+    */
+  get block(): Prisma.BlockDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +642,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Note: 'Note'
+    Page: 'Page',
+    Block: 'Block'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +662,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "note"
+      modelProps: "user" | "page" | "block"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -706,77 +740,151 @@ export namespace Prisma {
           }
         }
       }
-      Note: {
-        payload: Prisma.$NotePayload<ExtArgs>
-        fields: Prisma.NoteFieldRefs
+      Page: {
+        payload: Prisma.$PagePayload<ExtArgs>
+        fields: Prisma.PageFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.NoteFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload> | null
+            args: Prisma.PageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.NoteFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>
+            args: Prisma.PageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>
           }
           findFirst: {
-            args: Prisma.NoteFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload> | null
+            args: Prisma.PageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.NoteFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>
+            args: Prisma.PageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>
           }
           findMany: {
-            args: Prisma.NoteFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>[]
+            args: Prisma.PageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>[]
           }
           create: {
-            args: Prisma.NoteCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>
+            args: Prisma.PageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>
           }
           createMany: {
-            args: Prisma.NoteCreateManyArgs<ExtArgs>
+            args: Prisma.PageCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.NoteCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>[]
+            args: Prisma.PageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>[]
           }
           delete: {
-            args: Prisma.NoteDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>
+            args: Prisma.PageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>
           }
           update: {
-            args: Prisma.NoteUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>
+            args: Prisma.PageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>
           }
           deleteMany: {
-            args: Prisma.NoteDeleteManyArgs<ExtArgs>
+            args: Prisma.PageDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.NoteUpdateManyArgs<ExtArgs>
+            args: Prisma.PageUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.NoteUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>[]
+            args: Prisma.PageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>[]
           }
           upsert: {
-            args: Prisma.NoteUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotePayload>
+            args: Prisma.PageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePayload>
           }
           aggregate: {
-            args: Prisma.NoteAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateNote>
+            args: Prisma.PageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePage>
           }
           groupBy: {
-            args: Prisma.NoteGroupByArgs<ExtArgs>
-            result: $Utils.Optional<NoteGroupByOutputType>[]
+            args: Prisma.PageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PageGroupByOutputType>[]
           }
           count: {
-            args: Prisma.NoteCountArgs<ExtArgs>
-            result: $Utils.Optional<NoteCountAggregateOutputType> | number
+            args: Prisma.PageCountArgs<ExtArgs>
+            result: $Utils.Optional<PageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Block: {
+        payload: Prisma.$BlockPayload<ExtArgs>
+        fields: Prisma.BlockFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BlockFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BlockFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>
+          }
+          findFirst: {
+            args: Prisma.BlockFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BlockFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>
+          }
+          findMany: {
+            args: Prisma.BlockFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>[]
+          }
+          create: {
+            args: Prisma.BlockCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>
+          }
+          createMany: {
+            args: Prisma.BlockCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BlockCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>[]
+          }
+          delete: {
+            args: Prisma.BlockDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>
+          }
+          update: {
+            args: Prisma.BlockUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>
+          }
+          deleteMany: {
+            args: Prisma.BlockDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BlockUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BlockUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>[]
+          }
+          upsert: {
+            args: Prisma.BlockUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockPayload>
+          }
+          aggregate: {
+            args: Prisma.BlockAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBlock>
+          }
+          groupBy: {
+            args: Prisma.BlockGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BlockGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BlockCountArgs<ExtArgs>
+            result: $Utils.Optional<BlockCountAggregateOutputType> | number
           }
         }
       }
@@ -865,7 +973,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
-    note?: NoteOmit
+    page?: PageOmit
+    block?: BlockOmit
   }
 
   /* Types for Logging */
@@ -960,11 +1069,11 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    notes: number
+    pages: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    notes?: boolean | UserCountOutputTypeCountNotesArgs
+    pages?: boolean | UserCountOutputTypeCountPagesArgs
   }
 
   // Custom InputTypes
@@ -981,8 +1090,70 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NoteWhereInput
+  export type UserCountOutputTypeCountPagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PageWhereInput
+  }
+
+
+  /**
+   * Count Type PageCountOutputType
+   */
+
+  export type PageCountOutputType = {
+    blocks: number
+  }
+
+  export type PageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blocks?: boolean | PageCountOutputTypeCountBlocksArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PageCountOutputType without action
+   */
+  export type PageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageCountOutputType
+     */
+    select?: PageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PageCountOutputType without action
+   */
+  export type PageCountOutputTypeCountBlocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockWhereInput
+  }
+
+
+  /**
+   * Count Type BlockCountOutputType
+   */
+
+  export type BlockCountOutputType = {
+    content: number
+  }
+
+  export type BlockCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    content?: boolean | BlockCountOutputTypeCountContentArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BlockCountOutputType without action
+   */
+  export type BlockCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockCountOutputType
+     */
+    select?: BlockCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BlockCountOutputType without action
+   */
+  export type BlockCountOutputTypeCountContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockWhereInput
   }
 
 
@@ -1154,7 +1325,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     createdAt?: boolean
-    notes?: boolean | User$notesArgs<ExtArgs>
+    pages?: boolean | User$pagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1184,7 +1355,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    notes?: boolean | User$notesArgs<ExtArgs>
+    pages?: boolean | User$pagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1193,7 +1364,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      notes: Prisma.$NotePayload<ExtArgs>[]
+      pages: Prisma.$PagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1595,7 +1766,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    notes<T extends User$notesArgs<ExtArgs> = {}>(args?: Subset<T, User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pages<T extends User$pagesArgs<ExtArgs> = {}>(args?: Subset<T, User$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2018,27 +2189,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.notes
+   * User.pages
    */
-  export type User$notesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$pagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
-    where?: NoteWhereInput
-    orderBy?: NoteOrderByWithRelationInput | NoteOrderByWithRelationInput[]
-    cursor?: NoteWhereUniqueInput
+    include?: PageInclude<ExtArgs> | null
+    where?: PageWhereInput
+    orderBy?: PageOrderByWithRelationInput | PageOrderByWithRelationInput[]
+    cursor?: PageWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+    distinct?: PageScalarFieldEnum | PageScalarFieldEnum[]
   }
 
   /**
@@ -2061,362 +2232,343 @@ export namespace Prisma {
 
 
   /**
-   * Model Note
+   * Model Page
    */
 
-  export type AggregateNote = {
-    _count: NoteCountAggregateOutputType | null
-    _min: NoteMinAggregateOutputType | null
-    _max: NoteMaxAggregateOutputType | null
+  export type AggregatePage = {
+    _count: PageCountAggregateOutputType | null
+    _min: PageMinAggregateOutputType | null
+    _max: PageMaxAggregateOutputType | null
   }
 
-  export type NoteMinAggregateOutputType = {
+  export type PageMinAggregateOutputType = {
     id: string | null
-    title: string | null
-    content: string | null
-    authorId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    userId: string | null
   }
 
-  export type NoteMaxAggregateOutputType = {
+  export type PageMaxAggregateOutputType = {
     id: string | null
-    title: string | null
-    content: string | null
-    authorId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    userId: string | null
   }
 
-  export type NoteCountAggregateOutputType = {
+  export type PageCountAggregateOutputType = {
     id: number
-    title: number
-    content: number
-    authorId: number
     createdAt: number
     updatedAt: number
+    userId: number
     _all: number
   }
 
 
-  export type NoteMinAggregateInputType = {
+  export type PageMinAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    authorId?: true
     createdAt?: true
     updatedAt?: true
+    userId?: true
   }
 
-  export type NoteMaxAggregateInputType = {
+  export type PageMaxAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    authorId?: true
     createdAt?: true
     updatedAt?: true
+    userId?: true
   }
 
-  export type NoteCountAggregateInputType = {
+  export type PageCountAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    authorId?: true
     createdAt?: true
     updatedAt?: true
+    userId?: true
     _all?: true
   }
 
-  export type NoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Note to aggregate.
+     * Filter which Page to aggregate.
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Notes to fetch.
+     * Determine the order of Pages to fetch.
      */
-    orderBy?: NoteOrderByWithRelationInput | NoteOrderByWithRelationInput[]
+    orderBy?: PageOrderByWithRelationInput | PageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: NoteWhereUniqueInput
+    cursor?: PageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Notes from the position of the cursor.
+     * Take `±n` Pages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Notes.
+     * Skip the first `n` Pages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Notes
+     * Count returned Pages
     **/
-    _count?: true | NoteCountAggregateInputType
+    _count?: true | PageCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: NoteMinAggregateInputType
+    _min?: PageMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: NoteMaxAggregateInputType
+    _max?: PageMaxAggregateInputType
   }
 
-  export type GetNoteAggregateType<T extends NoteAggregateArgs> = {
-        [P in keyof T & keyof AggregateNote]: P extends '_count' | 'count'
+  export type GetPageAggregateType<T extends PageAggregateArgs> = {
+        [P in keyof T & keyof AggregatePage]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateNote[P]>
-      : GetScalarType<T[P], AggregateNote[P]>
+        : GetScalarType<T[P], AggregatePage[P]>
+      : GetScalarType<T[P], AggregatePage[P]>
   }
 
 
 
 
-  export type NoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NoteWhereInput
-    orderBy?: NoteOrderByWithAggregationInput | NoteOrderByWithAggregationInput[]
-    by: NoteScalarFieldEnum[] | NoteScalarFieldEnum
-    having?: NoteScalarWhereWithAggregatesInput
+  export type PageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PageWhereInput
+    orderBy?: PageOrderByWithAggregationInput | PageOrderByWithAggregationInput[]
+    by: PageScalarFieldEnum[] | PageScalarFieldEnum
+    having?: PageScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: NoteCountAggregateInputType | true
-    _min?: NoteMinAggregateInputType
-    _max?: NoteMaxAggregateInputType
+    _count?: PageCountAggregateInputType | true
+    _min?: PageMinAggregateInputType
+    _max?: PageMaxAggregateInputType
   }
 
-  export type NoteGroupByOutputType = {
+  export type PageGroupByOutputType = {
     id: string
-    title: string | null
-    content: string | null
-    authorId: string | null
     createdAt: Date
     updatedAt: Date
-    _count: NoteCountAggregateOutputType | null
-    _min: NoteMinAggregateOutputType | null
-    _max: NoteMaxAggregateOutputType | null
+    userId: string
+    _count: PageCountAggregateOutputType | null
+    _min: PageMinAggregateOutputType | null
+    _max: PageMaxAggregateOutputType | null
   }
 
-  type GetNoteGroupByPayload<T extends NoteGroupByArgs> = Prisma.PrismaPromise<
+  type GetPageGroupByPayload<T extends PageGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<NoteGroupByOutputType, T['by']> &
+      PickEnumerable<PageGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof NoteGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PageGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], NoteGroupByOutputType[P]>
-            : GetScalarType<T[P], NoteGroupByOutputType[P]>
+              : GetScalarType<T[P], PageGroupByOutputType[P]>
+            : GetScalarType<T[P], PageGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type NoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    author?: boolean | Note$authorArgs<ExtArgs>
-  }, ExtArgs["result"]["note"]>
+    userId?: boolean
+    blocks?: boolean | Page$blocksArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | PageCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["page"]>
 
-  export type NoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    author?: boolean | Note$authorArgs<ExtArgs>
-  }, ExtArgs["result"]["note"]>
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["page"]>
 
-  export type NoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    author?: boolean | Note$authorArgs<ExtArgs>
-  }, ExtArgs["result"]["note"]>
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["page"]>
 
-  export type NoteSelectScalar = {
+  export type PageSelectScalar = {
     id?: boolean
-    title?: boolean
-    content?: boolean
-    authorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    userId?: boolean
   }
 
-  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
-  export type NoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | Note$authorArgs<ExtArgs>
+  export type PageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["page"]>
+  export type PageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blocks?: boolean | Page$blocksArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | PageCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type NoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | Note$authorArgs<ExtArgs>
+  export type PageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type NoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | Note$authorArgs<ExtArgs>
+  export type PageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $NotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Note"
+  export type $PagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Page"
     objects: {
-      author: Prisma.$UserPayload<ExtArgs> | null
+      blocks: Prisma.$BlockPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string | null
-      content: string | null
-      authorId: string | null
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["note"]>
+      userId: string
+    }, ExtArgs["result"]["page"]>
     composites: {}
   }
 
-  type NoteGetPayload<S extends boolean | null | undefined | NoteDefaultArgs> = $Result.GetResult<Prisma.$NotePayload, S>
+  type PageGetPayload<S extends boolean | null | undefined | PageDefaultArgs> = $Result.GetResult<Prisma.$PagePayload, S>
 
-  type NoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<NoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: NoteCountAggregateInputType | true
+  type PageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PageCountAggregateInputType | true
     }
 
-  export interface NoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Note'], meta: { name: 'Note' } }
+  export interface PageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Page'], meta: { name: 'Page' } }
     /**
-     * Find zero or one Note that matches the filter.
-     * @param {NoteFindUniqueArgs} args - Arguments to find a Note
+     * Find zero or one Page that matches the filter.
+     * @param {PageFindUniqueArgs} args - Arguments to find a Page
      * @example
-     * // Get one Note
-     * const note = await prisma.note.findUnique({
+     * // Get one Page
+     * const page = await prisma.page.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends NoteFindUniqueArgs>(args: SelectSubset<T, NoteFindUniqueArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends PageFindUniqueArgs>(args: SelectSubset<T, PageFindUniqueArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Note that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Page that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {NoteFindUniqueOrThrowArgs} args - Arguments to find a Note
+     * @param {PageFindUniqueOrThrowArgs} args - Arguments to find a Page
      * @example
-     * // Get one Note
-     * const note = await prisma.note.findUniqueOrThrow({
+     * // Get one Page
+     * const page = await prisma.page.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends NoteFindUniqueOrThrowArgs>(args: SelectSubset<T, NoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends PageFindUniqueOrThrowArgs>(args: SelectSubset<T, PageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Note that matches the filter.
+     * Find the first Page that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteFindFirstArgs} args - Arguments to find a Note
+     * @param {PageFindFirstArgs} args - Arguments to find a Page
      * @example
-     * // Get one Note
-     * const note = await prisma.note.findFirst({
+     * // Get one Page
+     * const page = await prisma.page.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends NoteFindFirstArgs>(args?: SelectSubset<T, NoteFindFirstArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends PageFindFirstArgs>(args?: SelectSubset<T, PageFindFirstArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Note that matches the filter or
+     * Find the first Page that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteFindFirstOrThrowArgs} args - Arguments to find a Note
+     * @param {PageFindFirstOrThrowArgs} args - Arguments to find a Page
      * @example
-     * // Get one Note
-     * const note = await prisma.note.findFirstOrThrow({
+     * // Get one Page
+     * const page = await prisma.page.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends NoteFindFirstOrThrowArgs>(args?: SelectSubset<T, NoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends PageFindFirstOrThrowArgs>(args?: SelectSubset<T, PageFindFirstOrThrowArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Notes that matches the filter.
+     * Find zero or more Pages that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {PageFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Notes
-     * const notes = await prisma.note.findMany()
+     * // Get all Pages
+     * const pages = await prisma.page.findMany()
      * 
-     * // Get first 10 Notes
-     * const notes = await prisma.note.findMany({ take: 10 })
+     * // Get first 10 Pages
+     * const pages = await prisma.page.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const noteWithIdOnly = await prisma.note.findMany({ select: { id: true } })
+     * const pageWithIdOnly = await prisma.page.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends NoteFindManyArgs>(args?: SelectSubset<T, NoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends PageFindManyArgs>(args?: SelectSubset<T, PageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Note.
-     * @param {NoteCreateArgs} args - Arguments to create a Note.
+     * Create a Page.
+     * @param {PageCreateArgs} args - Arguments to create a Page.
      * @example
-     * // Create one Note
-     * const Note = await prisma.note.create({
+     * // Create one Page
+     * const Page = await prisma.page.create({
      *   data: {
-     *     // ... data to create a Note
+     *     // ... data to create a Page
      *   }
      * })
      * 
      */
-    create<T extends NoteCreateArgs>(args: SelectSubset<T, NoteCreateArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends PageCreateArgs>(args: SelectSubset<T, PageCreateArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Notes.
-     * @param {NoteCreateManyArgs} args - Arguments to create many Notes.
+     * Create many Pages.
+     * @param {PageCreateManyArgs} args - Arguments to create many Pages.
      * @example
-     * // Create many Notes
-     * const note = await prisma.note.createMany({
+     * // Create many Pages
+     * const page = await prisma.page.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends NoteCreateManyArgs>(args?: SelectSubset<T, NoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends PageCreateManyArgs>(args?: SelectSubset<T, PageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Notes and returns the data saved in the database.
-     * @param {NoteCreateManyAndReturnArgs} args - Arguments to create many Notes.
+     * Create many Pages and returns the data saved in the database.
+     * @param {PageCreateManyAndReturnArgs} args - Arguments to create many Pages.
      * @example
-     * // Create many Notes
-     * const note = await prisma.note.createManyAndReturn({
+     * // Create many Pages
+     * const page = await prisma.page.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Notes and only return the `id`
-     * const noteWithIdOnly = await prisma.note.createManyAndReturn({
+     * // Create many Pages and only return the `id`
+     * const pageWithIdOnly = await prisma.page.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -2426,28 +2578,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends NoteCreateManyAndReturnArgs>(args?: SelectSubset<T, NoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends PageCreateManyAndReturnArgs>(args?: SelectSubset<T, PageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Note.
-     * @param {NoteDeleteArgs} args - Arguments to delete one Note.
+     * Delete a Page.
+     * @param {PageDeleteArgs} args - Arguments to delete one Page.
      * @example
-     * // Delete one Note
-     * const Note = await prisma.note.delete({
+     * // Delete one Page
+     * const Page = await prisma.page.delete({
      *   where: {
-     *     // ... filter to delete one Note
+     *     // ... filter to delete one Page
      *   }
      * })
      * 
      */
-    delete<T extends NoteDeleteArgs>(args: SelectSubset<T, NoteDeleteArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends PageDeleteArgs>(args: SelectSubset<T, PageDeleteArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Note.
-     * @param {NoteUpdateArgs} args - Arguments to update one Note.
+     * Update one Page.
+     * @param {PageUpdateArgs} args - Arguments to update one Page.
      * @example
-     * // Update one Note
-     * const note = await prisma.note.update({
+     * // Update one Page
+     * const page = await prisma.page.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2457,30 +2609,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends NoteUpdateArgs>(args: SelectSubset<T, NoteUpdateArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends PageUpdateArgs>(args: SelectSubset<T, PageUpdateArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Notes.
-     * @param {NoteDeleteManyArgs} args - Arguments to filter Notes to delete.
+     * Delete zero or more Pages.
+     * @param {PageDeleteManyArgs} args - Arguments to filter Pages to delete.
      * @example
-     * // Delete a few Notes
-     * const { count } = await prisma.note.deleteMany({
+     * // Delete a few Pages
+     * const { count } = await prisma.page.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends NoteDeleteManyArgs>(args?: SelectSubset<T, NoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends PageDeleteManyArgs>(args?: SelectSubset<T, PageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Notes.
+     * Update zero or more Pages.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PageUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Notes
-     * const note = await prisma.note.updateMany({
+     * // Update many Pages
+     * const page = await prisma.page.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2490,14 +2642,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends NoteUpdateManyArgs>(args: SelectSubset<T, NoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends PageUpdateManyArgs>(args: SelectSubset<T, PageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Notes and returns the data updated in the database.
-     * @param {NoteUpdateManyAndReturnArgs} args - Arguments to update many Notes.
+     * Update zero or more Pages and returns the data updated in the database.
+     * @param {PageUpdateManyAndReturnArgs} args - Arguments to update many Pages.
      * @example
-     * // Update many Notes
-     * const note = await prisma.note.updateManyAndReturn({
+     * // Update many Pages
+     * const page = await prisma.page.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2506,8 +2658,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Notes and only return the `id`
-     * const noteWithIdOnly = await prisma.note.updateManyAndReturn({
+     * // Update zero or more Pages and only return the `id`
+     * const pageWithIdOnly = await prisma.page.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -2520,56 +2672,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends NoteUpdateManyAndReturnArgs>(args: SelectSubset<T, NoteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends PageUpdateManyAndReturnArgs>(args: SelectSubset<T, PageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Note.
-     * @param {NoteUpsertArgs} args - Arguments to update or create a Note.
+     * Create or update one Page.
+     * @param {PageUpsertArgs} args - Arguments to update or create a Page.
      * @example
-     * // Update or create a Note
-     * const note = await prisma.note.upsert({
+     * // Update or create a Page
+     * const page = await prisma.page.upsert({
      *   create: {
-     *     // ... data to create a Note
+     *     // ... data to create a Page
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Note we want to update
+     *     // ... the filter for the Page we want to update
      *   }
      * })
      */
-    upsert<T extends NoteUpsertArgs>(args: SelectSubset<T, NoteUpsertArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends PageUpsertArgs>(args: SelectSubset<T, PageUpsertArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Notes.
+     * Count the number of Pages.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteCountArgs} args - Arguments to filter Notes to count.
+     * @param {PageCountArgs} args - Arguments to filter Pages to count.
      * @example
-     * // Count the number of Notes
-     * const count = await prisma.note.count({
+     * // Count the number of Pages
+     * const count = await prisma.page.count({
      *   where: {
-     *     // ... the filter for the Notes we want to count
+     *     // ... the filter for the Pages we want to count
      *   }
      * })
     **/
-    count<T extends NoteCountArgs>(
-      args?: Subset<T, NoteCountArgs>,
+    count<T extends PageCountArgs>(
+      args?: Subset<T, PageCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], NoteCountAggregateOutputType>
+          : GetScalarType<T['select'], PageCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Note.
+     * Allows you to perform aggregations operations on a Page.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2589,13 +2741,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends NoteAggregateArgs>(args: Subset<T, NoteAggregateArgs>): Prisma.PrismaPromise<GetNoteAggregateType<T>>
+    aggregate<T extends PageAggregateArgs>(args: Subset<T, PageAggregateArgs>): Prisma.PrismaPromise<GetPageAggregateType<T>>
 
     /**
-     * Group by Note.
+     * Group by Page.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {NoteGroupByArgs} args - Group by arguments.
+     * @param {PageGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2610,14 +2762,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends NoteGroupByArgs,
+      T extends PageGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: NoteGroupByArgs['orderBy'] }
-        : { orderBy?: NoteGroupByArgs['orderBy'] },
+        ? { orderBy: PageGroupByArgs['orderBy'] }
+        : { orderBy?: PageGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2666,22 +2818,23 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, NoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Note model
+   * Fields of the Page model
    */
-  readonly fields: NoteFieldRefs;
+  readonly fields: PageFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Note.
+   * The delegate class that acts as a "Promise-like" for Page.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__NoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    author<T extends Note$authorArgs<ExtArgs> = {}>(args?: Subset<T, Note$authorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    blocks<T extends Page$blocksArgs<ExtArgs> = {}>(args?: Subset<T, Page$blocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2708,445 +2861,1559 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Note model
+   * Fields of the Page model
    */
-  interface NoteFieldRefs {
-    readonly id: FieldRef<"Note", 'String'>
-    readonly title: FieldRef<"Note", 'String'>
-    readonly content: FieldRef<"Note", 'String'>
-    readonly authorId: FieldRef<"Note", 'String'>
-    readonly createdAt: FieldRef<"Note", 'DateTime'>
-    readonly updatedAt: FieldRef<"Note", 'DateTime'>
+  interface PageFieldRefs {
+    readonly id: FieldRef<"Page", 'String'>
+    readonly createdAt: FieldRef<"Page", 'DateTime'>
+    readonly updatedAt: FieldRef<"Page", 'DateTime'>
+    readonly userId: FieldRef<"Page", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * Note findUnique
+   * Page findUnique
    */
-  export type NoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * Filter, which Note to fetch.
+     * Filter, which Page to fetch.
      */
-    where: NoteWhereUniqueInput
+    where: PageWhereUniqueInput
   }
 
   /**
-   * Note findUniqueOrThrow
+   * Page findUniqueOrThrow
    */
-  export type NoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * Filter, which Note to fetch.
+     * Filter, which Page to fetch.
      */
-    where: NoteWhereUniqueInput
+    where: PageWhereUniqueInput
   }
 
   /**
-   * Note findFirst
+   * Page findFirst
    */
-  export type NoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * Filter, which Note to fetch.
+     * Filter, which Page to fetch.
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Notes to fetch.
+     * Determine the order of Pages to fetch.
      */
-    orderBy?: NoteOrderByWithRelationInput | NoteOrderByWithRelationInput[]
+    orderBy?: PageOrderByWithRelationInput | PageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Notes.
+     * Sets the position for searching for Pages.
      */
-    cursor?: NoteWhereUniqueInput
+    cursor?: PageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Notes from the position of the cursor.
+     * Take `±n` Pages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Notes.
+     * Skip the first `n` Pages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Notes.
+     * Filter by unique combinations of Pages.
      */
-    distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+    distinct?: PageScalarFieldEnum | PageScalarFieldEnum[]
   }
 
   /**
-   * Note findFirstOrThrow
+   * Page findFirstOrThrow
    */
-  export type NoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * Filter, which Note to fetch.
+     * Filter, which Page to fetch.
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Notes to fetch.
+     * Determine the order of Pages to fetch.
      */
-    orderBy?: NoteOrderByWithRelationInput | NoteOrderByWithRelationInput[]
+    orderBy?: PageOrderByWithRelationInput | PageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Notes.
+     * Sets the position for searching for Pages.
      */
-    cursor?: NoteWhereUniqueInput
+    cursor?: PageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Notes from the position of the cursor.
+     * Take `±n` Pages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Notes.
+     * Skip the first `n` Pages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Notes.
+     * Filter by unique combinations of Pages.
      */
-    distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+    distinct?: PageScalarFieldEnum | PageScalarFieldEnum[]
   }
 
   /**
-   * Note findMany
+   * Page findMany
    */
-  export type NoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * Filter, which Notes to fetch.
+     * Filter, which Pages to fetch.
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Notes to fetch.
+     * Determine the order of Pages to fetch.
      */
-    orderBy?: NoteOrderByWithRelationInput | NoteOrderByWithRelationInput[]
+    orderBy?: PageOrderByWithRelationInput | PageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Notes.
+     * Sets the position for listing Pages.
      */
-    cursor?: NoteWhereUniqueInput
+    cursor?: PageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Notes from the position of the cursor.
+     * Take `±n` Pages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Notes.
+     * Skip the first `n` Pages.
      */
     skip?: number
-    distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+    distinct?: PageScalarFieldEnum | PageScalarFieldEnum[]
   }
 
   /**
-   * Note create
+   * Page create
    */
-  export type NoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * The data needed to create a Note.
+     * The data needed to create a Page.
      */
-    data: XOR<NoteCreateInput, NoteUncheckedCreateInput>
+    data: XOR<PageCreateInput, PageUncheckedCreateInput>
   }
 
   /**
-   * Note createMany
+   * Page createMany
    */
-  export type NoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Notes.
+     * The data used to create many Pages.
      */
-    data: NoteCreateManyInput | NoteCreateManyInput[]
+    data: PageCreateManyInput | PageCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Note createManyAndReturn
+   * Page createManyAndReturn
    */
-  export type NoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelectCreateManyAndReturn<ExtArgs> | null
+    select?: PageSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
-     * The data used to create many Notes.
+     * The data used to create many Pages.
      */
-    data: NoteCreateManyInput | NoteCreateManyInput[]
+    data: PageCreateManyInput | PageCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: PageIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Note update
+   * Page update
    */
-  export type NoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * The data needed to update a Note.
+     * The data needed to update a Page.
      */
-    data: XOR<NoteUpdateInput, NoteUncheckedUpdateInput>
+    data: XOR<PageUpdateInput, PageUncheckedUpdateInput>
     /**
-     * Choose, which Note to update.
+     * Choose, which Page to update.
      */
-    where: NoteWhereUniqueInput
+    where: PageWhereUniqueInput
   }
 
   /**
-   * Note updateMany
+   * Page updateMany
    */
-  export type NoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Notes.
+     * The data used to update Pages.
      */
-    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyInput>
+    data: XOR<PageUpdateManyMutationInput, PageUncheckedUpdateManyInput>
     /**
-     * Filter which Notes to update
+     * Filter which Pages to update
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
-     * Limit how many Notes to update.
+     * Limit how many Pages to update.
      */
     limit?: number
   }
 
   /**
-   * Note updateManyAndReturn
+   * Page updateManyAndReturn
    */
-  export type NoteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: PageSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
-     * The data used to update Notes.
+     * The data used to update Pages.
      */
-    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyInput>
+    data: XOR<PageUpdateManyMutationInput, PageUncheckedUpdateManyInput>
     /**
-     * Filter which Notes to update
+     * Filter which Pages to update
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
-     * Limit how many Notes to update.
+     * Limit how many Pages to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: PageIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Note upsert
+   * Page upsert
    */
-  export type NoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * The filter to search for the Note to update in case it exists.
+     * The filter to search for the Page to update in case it exists.
      */
-    where: NoteWhereUniqueInput
+    where: PageWhereUniqueInput
     /**
-     * In case the Note found by the `where` argument doesn't exist, create a new Note with this data.
+     * In case the Page found by the `where` argument doesn't exist, create a new Page with this data.
      */
-    create: XOR<NoteCreateInput, NoteUncheckedCreateInput>
+    create: XOR<PageCreateInput, PageUncheckedCreateInput>
     /**
-     * In case the Note was found with the provided `where` argument, update it with this data.
+     * In case the Page was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<NoteUpdateInput, NoteUncheckedUpdateInput>
+    update: XOR<PageUpdateInput, PageUncheckedUpdateInput>
   }
 
   /**
-   * Note delete
+   * Page delete
    */
-  export type NoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
     /**
-     * Filter which Note to delete.
+     * Filter which Page to delete.
      */
-    where: NoteWhereUniqueInput
+    where: PageWhereUniqueInput
   }
 
   /**
-   * Note deleteMany
+   * Page deleteMany
    */
-  export type NoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Notes to delete
+     * Filter which Pages to delete
      */
-    where?: NoteWhereInput
+    where?: PageWhereInput
     /**
-     * Limit how many Notes to delete.
+     * Limit how many Pages to delete.
      */
     limit?: number
   }
 
   /**
-   * Note.author
+   * Page.blocks
    */
-  export type Note$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Page$blocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the User
+     * Select specific fields to fetch from the Block
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: BlockSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the User
+     * Omit specific fields from the Block
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: BlockOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
+    include?: BlockInclude<ExtArgs> | null
+    where?: BlockWhereInput
+    orderBy?: BlockOrderByWithRelationInput | BlockOrderByWithRelationInput[]
+    cursor?: BlockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlockScalarFieldEnum | BlockScalarFieldEnum[]
   }
 
   /**
-   * Note without action
+   * Page without action
    */
-  export type NoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Note
+     * Select specific fields to fetch from the Page
      */
-    select?: NoteSelect<ExtArgs> | null
+    select?: PageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Note
+     * Omit specific fields from the Page
      */
-    omit?: NoteOmit<ExtArgs> | null
+    omit?: PageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteInclude<ExtArgs> | null
+    include?: PageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Block
+   */
+
+  export type AggregateBlock = {
+    _count: BlockCountAggregateOutputType | null
+    _min: BlockMinAggregateOutputType | null
+    _max: BlockMaxAggregateOutputType | null
+  }
+
+  export type BlockMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.BlockType | null
+    parentId: string | null
+    pageId: string | null
+  }
+
+  export type BlockMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.BlockType | null
+    parentId: string | null
+    pageId: string | null
+  }
+
+  export type BlockCountAggregateOutputType = {
+    id: number
+    type: number
+    properties: number
+    parentId: number
+    pageId: number
+    _all: number
+  }
+
+
+  export type BlockMinAggregateInputType = {
+    id?: true
+    type?: true
+    parentId?: true
+    pageId?: true
+  }
+
+  export type BlockMaxAggregateInputType = {
+    id?: true
+    type?: true
+    parentId?: true
+    pageId?: true
+  }
+
+  export type BlockCountAggregateInputType = {
+    id?: true
+    type?: true
+    properties?: true
+    parentId?: true
+    pageId?: true
+    _all?: true
+  }
+
+  export type BlockAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Block to aggregate.
+     */
+    where?: BlockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Blocks to fetch.
+     */
+    orderBy?: BlockOrderByWithRelationInput | BlockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BlockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Blocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Blocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Blocks
+    **/
+    _count?: true | BlockCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BlockMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BlockMaxAggregateInputType
+  }
+
+  export type GetBlockAggregateType<T extends BlockAggregateArgs> = {
+        [P in keyof T & keyof AggregateBlock]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBlock[P]>
+      : GetScalarType<T[P], AggregateBlock[P]>
+  }
+
+
+
+
+  export type BlockGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockWhereInput
+    orderBy?: BlockOrderByWithAggregationInput | BlockOrderByWithAggregationInput[]
+    by: BlockScalarFieldEnum[] | BlockScalarFieldEnum
+    having?: BlockScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BlockCountAggregateInputType | true
+    _min?: BlockMinAggregateInputType
+    _max?: BlockMaxAggregateInputType
+  }
+
+  export type BlockGroupByOutputType = {
+    id: string
+    type: $Enums.BlockType
+    properties: JsonValue
+    parentId: string | null
+    pageId: string
+    _count: BlockCountAggregateOutputType | null
+    _min: BlockMinAggregateOutputType | null
+    _max: BlockMaxAggregateOutputType | null
+  }
+
+  type GetBlockGroupByPayload<T extends BlockGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BlockGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BlockGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BlockGroupByOutputType[P]>
+            : GetScalarType<T[P], BlockGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BlockSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    properties?: boolean
+    parentId?: boolean
+    pageId?: boolean
+    parent?: boolean | Block$parentArgs<ExtArgs>
+    content?: boolean | Block$contentArgs<ExtArgs>
+    page?: boolean | PageDefaultArgs<ExtArgs>
+    _count?: boolean | BlockCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["block"]>
+
+  export type BlockSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    properties?: boolean
+    parentId?: boolean
+    pageId?: boolean
+    parent?: boolean | Block$parentArgs<ExtArgs>
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["block"]>
+
+  export type BlockSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    properties?: boolean
+    parentId?: boolean
+    pageId?: boolean
+    parent?: boolean | Block$parentArgs<ExtArgs>
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["block"]>
+
+  export type BlockSelectScalar = {
+    id?: boolean
+    type?: boolean
+    properties?: boolean
+    parentId?: boolean
+    pageId?: boolean
+  }
+
+  export type BlockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "properties" | "parentId" | "pageId", ExtArgs["result"]["block"]>
+  export type BlockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | Block$parentArgs<ExtArgs>
+    content?: boolean | Block$contentArgs<ExtArgs>
+    page?: boolean | PageDefaultArgs<ExtArgs>
+    _count?: boolean | BlockCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BlockIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | Block$parentArgs<ExtArgs>
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+  export type BlockIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | Block$parentArgs<ExtArgs>
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+
+  export type $BlockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Block"
+    objects: {
+      parent: Prisma.$BlockPayload<ExtArgs> | null
+      content: Prisma.$BlockPayload<ExtArgs>[]
+      page: Prisma.$PagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.BlockType
+      properties: Prisma.JsonValue
+      parentId: string | null
+      pageId: string
+    }, ExtArgs["result"]["block"]>
+    composites: {}
+  }
+
+  type BlockGetPayload<S extends boolean | null | undefined | BlockDefaultArgs> = $Result.GetResult<Prisma.$BlockPayload, S>
+
+  type BlockCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BlockFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BlockCountAggregateInputType | true
+    }
+
+  export interface BlockDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Block'], meta: { name: 'Block' } }
+    /**
+     * Find zero or one Block that matches the filter.
+     * @param {BlockFindUniqueArgs} args - Arguments to find a Block
+     * @example
+     * // Get one Block
+     * const block = await prisma.block.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BlockFindUniqueArgs>(args: SelectSubset<T, BlockFindUniqueArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Block that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BlockFindUniqueOrThrowArgs} args - Arguments to find a Block
+     * @example
+     * // Get one Block
+     * const block = await prisma.block.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BlockFindUniqueOrThrowArgs>(args: SelectSubset<T, BlockFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Block that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockFindFirstArgs} args - Arguments to find a Block
+     * @example
+     * // Get one Block
+     * const block = await prisma.block.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BlockFindFirstArgs>(args?: SelectSubset<T, BlockFindFirstArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Block that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockFindFirstOrThrowArgs} args - Arguments to find a Block
+     * @example
+     * // Get one Block
+     * const block = await prisma.block.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BlockFindFirstOrThrowArgs>(args?: SelectSubset<T, BlockFindFirstOrThrowArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Blocks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Blocks
+     * const blocks = await prisma.block.findMany()
+     * 
+     * // Get first 10 Blocks
+     * const blocks = await prisma.block.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const blockWithIdOnly = await prisma.block.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BlockFindManyArgs>(args?: SelectSubset<T, BlockFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Block.
+     * @param {BlockCreateArgs} args - Arguments to create a Block.
+     * @example
+     * // Create one Block
+     * const Block = await prisma.block.create({
+     *   data: {
+     *     // ... data to create a Block
+     *   }
+     * })
+     * 
+     */
+    create<T extends BlockCreateArgs>(args: SelectSubset<T, BlockCreateArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Blocks.
+     * @param {BlockCreateManyArgs} args - Arguments to create many Blocks.
+     * @example
+     * // Create many Blocks
+     * const block = await prisma.block.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BlockCreateManyArgs>(args?: SelectSubset<T, BlockCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Blocks and returns the data saved in the database.
+     * @param {BlockCreateManyAndReturnArgs} args - Arguments to create many Blocks.
+     * @example
+     * // Create many Blocks
+     * const block = await prisma.block.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Blocks and only return the `id`
+     * const blockWithIdOnly = await prisma.block.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BlockCreateManyAndReturnArgs>(args?: SelectSubset<T, BlockCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Block.
+     * @param {BlockDeleteArgs} args - Arguments to delete one Block.
+     * @example
+     * // Delete one Block
+     * const Block = await prisma.block.delete({
+     *   where: {
+     *     // ... filter to delete one Block
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BlockDeleteArgs>(args: SelectSubset<T, BlockDeleteArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Block.
+     * @param {BlockUpdateArgs} args - Arguments to update one Block.
+     * @example
+     * // Update one Block
+     * const block = await prisma.block.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BlockUpdateArgs>(args: SelectSubset<T, BlockUpdateArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Blocks.
+     * @param {BlockDeleteManyArgs} args - Arguments to filter Blocks to delete.
+     * @example
+     * // Delete a few Blocks
+     * const { count } = await prisma.block.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BlockDeleteManyArgs>(args?: SelectSubset<T, BlockDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Blocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Blocks
+     * const block = await prisma.block.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BlockUpdateManyArgs>(args: SelectSubset<T, BlockUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Blocks and returns the data updated in the database.
+     * @param {BlockUpdateManyAndReturnArgs} args - Arguments to update many Blocks.
+     * @example
+     * // Update many Blocks
+     * const block = await prisma.block.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Blocks and only return the `id`
+     * const blockWithIdOnly = await prisma.block.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BlockUpdateManyAndReturnArgs>(args: SelectSubset<T, BlockUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Block.
+     * @param {BlockUpsertArgs} args - Arguments to update or create a Block.
+     * @example
+     * // Update or create a Block
+     * const block = await prisma.block.upsert({
+     *   create: {
+     *     // ... data to create a Block
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Block we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BlockUpsertArgs>(args: SelectSubset<T, BlockUpsertArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Blocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockCountArgs} args - Arguments to filter Blocks to count.
+     * @example
+     * // Count the number of Blocks
+     * const count = await prisma.block.count({
+     *   where: {
+     *     // ... the filter for the Blocks we want to count
+     *   }
+     * })
+    **/
+    count<T extends BlockCountArgs>(
+      args?: Subset<T, BlockCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BlockCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Block.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BlockAggregateArgs>(args: Subset<T, BlockAggregateArgs>): Prisma.PrismaPromise<GetBlockAggregateType<T>>
+
+    /**
+     * Group by Block.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BlockGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BlockGroupByArgs['orderBy'] }
+        : { orderBy?: BlockGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BlockGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlockGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Block model
+   */
+  readonly fields: BlockFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Block.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BlockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    parent<T extends Block$parentArgs<ExtArgs> = {}>(args?: Subset<T, Block$parentArgs<ExtArgs>>): Prisma__BlockClient<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    content<T extends Block$contentArgs<ExtArgs> = {}>(args?: Subset<T, Block$contentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    page<T extends PageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PageDefaultArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Block model
+   */
+  interface BlockFieldRefs {
+    readonly id: FieldRef<"Block", 'String'>
+    readonly type: FieldRef<"Block", 'BlockType'>
+    readonly properties: FieldRef<"Block", 'Json'>
+    readonly parentId: FieldRef<"Block", 'String'>
+    readonly pageId: FieldRef<"Block", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Block findUnique
+   */
+  export type BlockFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * Filter, which Block to fetch.
+     */
+    where: BlockWhereUniqueInput
+  }
+
+  /**
+   * Block findUniqueOrThrow
+   */
+  export type BlockFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * Filter, which Block to fetch.
+     */
+    where: BlockWhereUniqueInput
+  }
+
+  /**
+   * Block findFirst
+   */
+  export type BlockFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * Filter, which Block to fetch.
+     */
+    where?: BlockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Blocks to fetch.
+     */
+    orderBy?: BlockOrderByWithRelationInput | BlockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Blocks.
+     */
+    cursor?: BlockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Blocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Blocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Blocks.
+     */
+    distinct?: BlockScalarFieldEnum | BlockScalarFieldEnum[]
+  }
+
+  /**
+   * Block findFirstOrThrow
+   */
+  export type BlockFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * Filter, which Block to fetch.
+     */
+    where?: BlockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Blocks to fetch.
+     */
+    orderBy?: BlockOrderByWithRelationInput | BlockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Blocks.
+     */
+    cursor?: BlockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Blocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Blocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Blocks.
+     */
+    distinct?: BlockScalarFieldEnum | BlockScalarFieldEnum[]
+  }
+
+  /**
+   * Block findMany
+   */
+  export type BlockFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * Filter, which Blocks to fetch.
+     */
+    where?: BlockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Blocks to fetch.
+     */
+    orderBy?: BlockOrderByWithRelationInput | BlockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Blocks.
+     */
+    cursor?: BlockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Blocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Blocks.
+     */
+    skip?: number
+    distinct?: BlockScalarFieldEnum | BlockScalarFieldEnum[]
+  }
+
+  /**
+   * Block create
+   */
+  export type BlockCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Block.
+     */
+    data: XOR<BlockCreateInput, BlockUncheckedCreateInput>
+  }
+
+  /**
+   * Block createMany
+   */
+  export type BlockCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Blocks.
+     */
+    data: BlockCreateManyInput | BlockCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Block createManyAndReturn
+   */
+  export type BlockCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * The data used to create many Blocks.
+     */
+    data: BlockCreateManyInput | BlockCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Block update
+   */
+  export type BlockUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Block.
+     */
+    data: XOR<BlockUpdateInput, BlockUncheckedUpdateInput>
+    /**
+     * Choose, which Block to update.
+     */
+    where: BlockWhereUniqueInput
+  }
+
+  /**
+   * Block updateMany
+   */
+  export type BlockUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Blocks.
+     */
+    data: XOR<BlockUpdateManyMutationInput, BlockUncheckedUpdateManyInput>
+    /**
+     * Filter which Blocks to update
+     */
+    where?: BlockWhereInput
+    /**
+     * Limit how many Blocks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Block updateManyAndReturn
+   */
+  export type BlockUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * The data used to update Blocks.
+     */
+    data: XOR<BlockUpdateManyMutationInput, BlockUncheckedUpdateManyInput>
+    /**
+     * Filter which Blocks to update
+     */
+    where?: BlockWhereInput
+    /**
+     * Limit how many Blocks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Block upsert
+   */
+  export type BlockUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Block to update in case it exists.
+     */
+    where: BlockWhereUniqueInput
+    /**
+     * In case the Block found by the `where` argument doesn't exist, create a new Block with this data.
+     */
+    create: XOR<BlockCreateInput, BlockUncheckedCreateInput>
+    /**
+     * In case the Block was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BlockUpdateInput, BlockUncheckedUpdateInput>
+  }
+
+  /**
+   * Block delete
+   */
+  export type BlockDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    /**
+     * Filter which Block to delete.
+     */
+    where: BlockWhereUniqueInput
+  }
+
+  /**
+   * Block deleteMany
+   */
+  export type BlockDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Blocks to delete
+     */
+    where?: BlockWhereInput
+    /**
+     * Limit how many Blocks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Block.parent
+   */
+  export type Block$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    where?: BlockWhereInput
+  }
+
+  /**
+   * Block.content
+   */
+  export type Block$contentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
+    where?: BlockWhereInput
+    orderBy?: BlockOrderByWithRelationInput | BlockOrderByWithRelationInput[]
+    cursor?: BlockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlockScalarFieldEnum | BlockScalarFieldEnum[]
+  }
+
+  /**
+   * Block without action
+   */
+  export type BlockDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Block
+     */
+    select?: BlockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Block
+     */
+    omit?: BlockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockInclude<ExtArgs> | null
   }
 
 
@@ -3175,16 +4442,25 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const NoteScalarFieldEnum: {
+  export const PageScalarFieldEnum: {
     id: 'id',
-    title: 'title',
-    content: 'content',
-    authorId: 'authorId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    userId: 'userId'
   };
 
-  export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+  export type PageScalarFieldEnum = (typeof PageScalarFieldEnum)[keyof typeof PageScalarFieldEnum]
+
+
+  export const BlockScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    properties: 'properties',
+    parentId: 'parentId',
+    pageId: 'pageId'
+  };
+
+  export type BlockScalarFieldEnum = (typeof BlockScalarFieldEnum)[keyof typeof BlockScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3193,6 +4469,13 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -3209,6 +4492,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -3245,6 +4537,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BlockType'
+   */
+  export type EnumBlockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BlockType[]'
+   */
+  export type ListEnumBlockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3270,7 +4590,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
-    notes?: NoteListRelationFilter
+    pages?: PageListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3279,7 +4599,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
-    notes?: NoteOrderByRelationAggregateInput
+    pages?: PageOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3291,7 +4611,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
-    notes?: NoteListRelationFilter
+    pages?: PageListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3316,64 +4636,118 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
-  export type NoteWhereInput = {
-    AND?: NoteWhereInput | NoteWhereInput[]
-    OR?: NoteWhereInput[]
-    NOT?: NoteWhereInput | NoteWhereInput[]
-    id?: StringFilter<"Note"> | string
-    title?: StringNullableFilter<"Note"> | string | null
-    content?: StringNullableFilter<"Note"> | string | null
-    authorId?: StringNullableFilter<"Note"> | string | null
-    createdAt?: DateTimeFilter<"Note"> | Date | string
-    updatedAt?: DateTimeFilter<"Note"> | Date | string
-    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  export type PageWhereInput = {
+    AND?: PageWhereInput | PageWhereInput[]
+    OR?: PageWhereInput[]
+    NOT?: PageWhereInput | PageWhereInput[]
+    id?: StringFilter<"Page"> | string
+    createdAt?: DateTimeFilter<"Page"> | Date | string
+    updatedAt?: DateTimeFilter<"Page"> | Date | string
+    userId?: StringFilter<"Page"> | string
+    blocks?: BlockListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type NoteOrderByWithRelationInput = {
+  export type PageOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrderInput | SortOrder
-    content?: SortOrderInput | SortOrder
-    authorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    author?: UserOrderByWithRelationInput
+    userId?: SortOrder
+    blocks?: BlockOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
   }
 
-  export type NoteWhereUniqueInput = Prisma.AtLeast<{
+  export type PageWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: NoteWhereInput | NoteWhereInput[]
-    OR?: NoteWhereInput[]
-    NOT?: NoteWhereInput | NoteWhereInput[]
-    title?: StringNullableFilter<"Note"> | string | null
-    content?: StringNullableFilter<"Note"> | string | null
-    authorId?: StringNullableFilter<"Note"> | string | null
-    createdAt?: DateTimeFilter<"Note"> | Date | string
-    updatedAt?: DateTimeFilter<"Note"> | Date | string
-    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    AND?: PageWhereInput | PageWhereInput[]
+    OR?: PageWhereInput[]
+    NOT?: PageWhereInput | PageWhereInput[]
+    createdAt?: DateTimeFilter<"Page"> | Date | string
+    updatedAt?: DateTimeFilter<"Page"> | Date | string
+    userId?: StringFilter<"Page"> | string
+    blocks?: BlockListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
-  export type NoteOrderByWithAggregationInput = {
+  export type PageOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrderInput | SortOrder
-    content?: SortOrderInput | SortOrder
-    authorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: NoteCountOrderByAggregateInput
-    _max?: NoteMaxOrderByAggregateInput
-    _min?: NoteMinOrderByAggregateInput
+    userId?: SortOrder
+    _count?: PageCountOrderByAggregateInput
+    _max?: PageMaxOrderByAggregateInput
+    _min?: PageMinOrderByAggregateInput
   }
 
-  export type NoteScalarWhereWithAggregatesInput = {
-    AND?: NoteScalarWhereWithAggregatesInput | NoteScalarWhereWithAggregatesInput[]
-    OR?: NoteScalarWhereWithAggregatesInput[]
-    NOT?: NoteScalarWhereWithAggregatesInput | NoteScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Note"> | string
-    title?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    content?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    authorId?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
+  export type PageScalarWhereWithAggregatesInput = {
+    AND?: PageScalarWhereWithAggregatesInput | PageScalarWhereWithAggregatesInput[]
+    OR?: PageScalarWhereWithAggregatesInput[]
+    NOT?: PageScalarWhereWithAggregatesInput | PageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Page"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
+    userId?: StringWithAggregatesFilter<"Page"> | string
+  }
+
+  export type BlockWhereInput = {
+    AND?: BlockWhereInput | BlockWhereInput[]
+    OR?: BlockWhereInput[]
+    NOT?: BlockWhereInput | BlockWhereInput[]
+    id?: StringFilter<"Block"> | string
+    type?: EnumBlockTypeFilter<"Block"> | $Enums.BlockType
+    properties?: JsonFilter<"Block">
+    parentId?: StringNullableFilter<"Block"> | string | null
+    pageId?: StringFilter<"Block"> | string
+    parent?: XOR<BlockNullableScalarRelationFilter, BlockWhereInput> | null
+    content?: BlockListRelationFilter
+    page?: XOR<PageScalarRelationFilter, PageWhereInput>
+  }
+
+  export type BlockOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    properties?: SortOrder
+    parentId?: SortOrderInput | SortOrder
+    pageId?: SortOrder
+    parent?: BlockOrderByWithRelationInput
+    content?: BlockOrderByRelationAggregateInput
+    page?: PageOrderByWithRelationInput
+  }
+
+  export type BlockWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BlockWhereInput | BlockWhereInput[]
+    OR?: BlockWhereInput[]
+    NOT?: BlockWhereInput | BlockWhereInput[]
+    type?: EnumBlockTypeFilter<"Block"> | $Enums.BlockType
+    properties?: JsonFilter<"Block">
+    parentId?: StringNullableFilter<"Block"> | string | null
+    pageId?: StringFilter<"Block"> | string
+    parent?: XOR<BlockNullableScalarRelationFilter, BlockWhereInput> | null
+    content?: BlockListRelationFilter
+    page?: XOR<PageScalarRelationFilter, PageWhereInput>
+  }, "id">
+
+  export type BlockOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    properties?: SortOrder
+    parentId?: SortOrderInput | SortOrder
+    pageId?: SortOrder
+    _count?: BlockCountOrderByAggregateInput
+    _max?: BlockMaxOrderByAggregateInput
+    _min?: BlockMinOrderByAggregateInput
+  }
+
+  export type BlockScalarWhereWithAggregatesInput = {
+    AND?: BlockScalarWhereWithAggregatesInput | BlockScalarWhereWithAggregatesInput[]
+    OR?: BlockScalarWhereWithAggregatesInput[]
+    NOT?: BlockScalarWhereWithAggregatesInput | BlockScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Block"> | string
+    type?: EnumBlockTypeWithAggregatesFilter<"Block"> | $Enums.BlockType
+    properties?: JsonWithAggregatesFilter<"Block">
+    parentId?: StringNullableWithAggregatesFilter<"Block"> | string | null
+    pageId?: StringWithAggregatesFilter<"Block"> | string
   }
 
   export type UserCreateInput = {
@@ -3382,7 +4756,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
-    notes?: NoteCreateNestedManyWithoutAuthorInput
+    pages?: PageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3391,7 +4765,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
-    notes?: NoteUncheckedCreateNestedManyWithoutAuthorInput
+    pages?: PageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3400,7 +4774,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NoteUpdateManyWithoutAuthorNestedInput
+    pages?: PageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3409,7 +4783,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NoteUncheckedUpdateManyWithoutAuthorNestedInput
+    pages?: PageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3436,66 +4810,114 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NoteCreateInput = {
+  export type PageCreateInput = {
     id?: string
-    title?: string | null
-    content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    author?: UserCreateNestedOneWithoutNotesInput
+    blocks?: BlockCreateNestedManyWithoutPageInput
+    user: UserCreateNestedOneWithoutPagesInput
   }
 
-  export type NoteUncheckedCreateInput = {
+  export type PageUncheckedCreateInput = {
     id?: string
-    title?: string | null
-    content?: string | null
-    authorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    userId: string
+    blocks?: BlockUncheckedCreateNestedManyWithoutPageInput
   }
 
-  export type NoteUpdateInput = {
+  export type PageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: UserUpdateOneWithoutNotesNestedInput
+    blocks?: BlockUpdateManyWithoutPageNestedInput
+    user?: UserUpdateOneRequiredWithoutPagesNestedInput
   }
 
-  export type NoteUncheckedUpdateInput = {
+  export type PageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    blocks?: BlockUncheckedUpdateManyWithoutPageNestedInput
   }
 
-  export type NoteCreateManyInput = {
+  export type PageCreateManyInput = {
     id?: string
-    title?: string | null
-    content?: string | null
-    authorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    userId: string
   }
 
-  export type NoteUpdateManyMutationInput = {
+  export type PageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NoteUncheckedUpdateManyInput = {
+  export type PageUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BlockCreateInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parent?: BlockCreateNestedOneWithoutContentInput
+    content?: BlockCreateNestedManyWithoutParentInput
+    page: PageCreateNestedOneWithoutBlocksInput
+  }
+
+  export type BlockUncheckedCreateInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parentId?: string | null
+    pageId: string
+    content?: BlockUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type BlockUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parent?: BlockUpdateOneWithoutContentNestedInput
+    content?: BlockUpdateManyWithoutParentNestedInput
+    page?: PageUpdateOneRequiredWithoutBlocksNestedInput
+  }
+
+  export type BlockUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    pageId?: StringFieldUpdateOperationsInput | string
+    content?: BlockUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type BlockCreateManyInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parentId?: string | null
+    pageId: string
+  }
+
+  export type BlockUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type BlockUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    pageId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3539,10 +4961,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NoteListRelationFilter = {
-    every?: NoteWhereInput
-    some?: NoteWhereInput
-    none?: NoteWhereInput
+  export type PageListRelationFilter = {
+    every?: PageWhereInput
+    some?: PageWhereInput
+    none?: PageWhereInput
   }
 
   export type SortOrderInput = {
@@ -3550,7 +4972,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type NoteOrderByRelationAggregateInput = {
+  export type PageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3628,50 +5050,152 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type BlockListRelationFilter = {
+    every?: BlockWhereInput
+    some?: BlockWhereInput
+    none?: BlockWhereInput
   }
 
-  export type NoteCountOrderByAggregateInput = {
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type BlockOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PageCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
-  export type NoteMaxOrderByAggregateInput = {
+  export type PageMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
-  export type NoteMinOrderByAggregateInput = {
+  export type PageMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
-  export type NoteCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput> | NoteCreateWithoutAuthorInput[] | NoteUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: NoteCreateOrConnectWithoutAuthorInput | NoteCreateOrConnectWithoutAuthorInput[]
-    createMany?: NoteCreateManyAuthorInputEnvelope
-    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  export type EnumBlockTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeFilter<$PrismaModel> | $Enums.BlockType
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NoteUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput> | NoteCreateWithoutAuthorInput[] | NoteUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: NoteCreateOrConnectWithoutAuthorInput | NoteCreateOrConnectWithoutAuthorInput[]
-    createMany?: NoteCreateManyAuthorInputEnvelope
-    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  export type BlockNullableScalarRelationFilter = {
+    is?: BlockWhereInput | null
+    isNot?: BlockWhereInput | null
+  }
+
+  export type PageScalarRelationFilter = {
+    is?: PageWhereInput
+    isNot?: PageWhereInput
+  }
+
+  export type BlockCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    properties?: SortOrder
+    parentId?: SortOrder
+    pageId?: SortOrder
+  }
+
+  export type BlockMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    parentId?: SortOrder
+    pageId?: SortOrder
+  }
+
+  export type BlockMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    parentId?: SortOrder
+    pageId?: SortOrder
+  }
+
+  export type EnumBlockTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlockType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockTypeFilter<$PrismaModel>
+    _max?: NestedEnumBlockTypeFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type PageCreateNestedManyWithoutUserInput = {
+    create?: XOR<PageCreateWithoutUserInput, PageUncheckedCreateWithoutUserInput> | PageCreateWithoutUserInput[] | PageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutUserInput | PageCreateOrConnectWithoutUserInput[]
+    createMany?: PageCreateManyUserInputEnvelope
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+  }
+
+  export type PageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PageCreateWithoutUserInput, PageUncheckedCreateWithoutUserInput> | PageCreateWithoutUserInput[] | PageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutUserInput | PageCreateOrConnectWithoutUserInput[]
+    createMany?: PageCreateManyUserInputEnvelope
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3686,48 +5210,164 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type NoteUpdateManyWithoutAuthorNestedInput = {
-    create?: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput> | NoteCreateWithoutAuthorInput[] | NoteUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: NoteCreateOrConnectWithoutAuthorInput | NoteCreateOrConnectWithoutAuthorInput[]
-    upsert?: NoteUpsertWithWhereUniqueWithoutAuthorInput | NoteUpsertWithWhereUniqueWithoutAuthorInput[]
-    createMany?: NoteCreateManyAuthorInputEnvelope
-    set?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    disconnect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    delete?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    update?: NoteUpdateWithWhereUniqueWithoutAuthorInput | NoteUpdateWithWhereUniqueWithoutAuthorInput[]
-    updateMany?: NoteUpdateManyWithWhereWithoutAuthorInput | NoteUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
+  export type PageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PageCreateWithoutUserInput, PageUncheckedCreateWithoutUserInput> | PageCreateWithoutUserInput[] | PageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutUserInput | PageCreateOrConnectWithoutUserInput[]
+    upsert?: PageUpsertWithWhereUniqueWithoutUserInput | PageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PageCreateManyUserInputEnvelope
+    set?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    disconnect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    delete?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    update?: PageUpdateWithWhereUniqueWithoutUserInput | PageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PageUpdateManyWithWhereWithoutUserInput | PageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
   }
 
-  export type NoteUncheckedUpdateManyWithoutAuthorNestedInput = {
-    create?: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput> | NoteCreateWithoutAuthorInput[] | NoteUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: NoteCreateOrConnectWithoutAuthorInput | NoteCreateOrConnectWithoutAuthorInput[]
-    upsert?: NoteUpsertWithWhereUniqueWithoutAuthorInput | NoteUpsertWithWhereUniqueWithoutAuthorInput[]
-    createMany?: NoteCreateManyAuthorInputEnvelope
-    set?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    disconnect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    delete?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-    update?: NoteUpdateWithWhereUniqueWithoutAuthorInput | NoteUpdateWithWhereUniqueWithoutAuthorInput[]
-    updateMany?: NoteUpdateManyWithWhereWithoutAuthorInput | NoteUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
+  export type PageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PageCreateWithoutUserInput, PageUncheckedCreateWithoutUserInput> | PageCreateWithoutUserInput[] | PageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutUserInput | PageCreateOrConnectWithoutUserInput[]
+    upsert?: PageUpsertWithWhereUniqueWithoutUserInput | PageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PageCreateManyUserInputEnvelope
+    set?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    disconnect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    delete?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    update?: PageUpdateWithWhereUniqueWithoutUserInput | PageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PageUpdateManyWithWhereWithoutUserInput | PageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutNotesInput = {
-    create?: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotesInput
+  export type BlockCreateNestedManyWithoutPageInput = {
+    create?: XOR<BlockCreateWithoutPageInput, BlockUncheckedCreateWithoutPageInput> | BlockCreateWithoutPageInput[] | BlockUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutPageInput | BlockCreateOrConnectWithoutPageInput[]
+    createMany?: BlockCreateManyPageInputEnvelope
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutPagesInput = {
+    create?: XOR<UserCreateWithoutPagesInput, UserUncheckedCreateWithoutPagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPagesInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneWithoutNotesNestedInput = {
-    create?: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotesInput
-    upsert?: UserUpsertWithoutNotesInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
+  export type BlockUncheckedCreateNestedManyWithoutPageInput = {
+    create?: XOR<BlockCreateWithoutPageInput, BlockUncheckedCreateWithoutPageInput> | BlockCreateWithoutPageInput[] | BlockUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutPageInput | BlockCreateOrConnectWithoutPageInput[]
+    createMany?: BlockCreateManyPageInputEnvelope
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+  }
+
+  export type BlockUpdateManyWithoutPageNestedInput = {
+    create?: XOR<BlockCreateWithoutPageInput, BlockUncheckedCreateWithoutPageInput> | BlockCreateWithoutPageInput[] | BlockUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutPageInput | BlockCreateOrConnectWithoutPageInput[]
+    upsert?: BlockUpsertWithWhereUniqueWithoutPageInput | BlockUpsertWithWhereUniqueWithoutPageInput[]
+    createMany?: BlockCreateManyPageInputEnvelope
+    set?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    disconnect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    delete?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    update?: BlockUpdateWithWhereUniqueWithoutPageInput | BlockUpdateWithWhereUniqueWithoutPageInput[]
+    updateMany?: BlockUpdateManyWithWhereWithoutPageInput | BlockUpdateManyWithWhereWithoutPageInput[]
+    deleteMany?: BlockScalarWhereInput | BlockScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutPagesNestedInput = {
+    create?: XOR<UserCreateWithoutPagesInput, UserUncheckedCreateWithoutPagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPagesInput
+    upsert?: UserUpsertWithoutPagesInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotesInput, UserUpdateWithoutNotesInput>, UserUncheckedUpdateWithoutNotesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPagesInput, UserUpdateWithoutPagesInput>, UserUncheckedUpdateWithoutPagesInput>
+  }
+
+  export type BlockUncheckedUpdateManyWithoutPageNestedInput = {
+    create?: XOR<BlockCreateWithoutPageInput, BlockUncheckedCreateWithoutPageInput> | BlockCreateWithoutPageInput[] | BlockUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutPageInput | BlockCreateOrConnectWithoutPageInput[]
+    upsert?: BlockUpsertWithWhereUniqueWithoutPageInput | BlockUpsertWithWhereUniqueWithoutPageInput[]
+    createMany?: BlockCreateManyPageInputEnvelope
+    set?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    disconnect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    delete?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    update?: BlockUpdateWithWhereUniqueWithoutPageInput | BlockUpdateWithWhereUniqueWithoutPageInput[]
+    updateMany?: BlockUpdateManyWithWhereWithoutPageInput | BlockUpdateManyWithWhereWithoutPageInput[]
+    deleteMany?: BlockScalarWhereInput | BlockScalarWhereInput[]
+  }
+
+  export type BlockCreateNestedOneWithoutContentInput = {
+    create?: XOR<BlockCreateWithoutContentInput, BlockUncheckedCreateWithoutContentInput>
+    connectOrCreate?: BlockCreateOrConnectWithoutContentInput
+    connect?: BlockWhereUniqueInput
+  }
+
+  export type BlockCreateNestedManyWithoutParentInput = {
+    create?: XOR<BlockCreateWithoutParentInput, BlockUncheckedCreateWithoutParentInput> | BlockCreateWithoutParentInput[] | BlockUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutParentInput | BlockCreateOrConnectWithoutParentInput[]
+    createMany?: BlockCreateManyParentInputEnvelope
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+  }
+
+  export type PageCreateNestedOneWithoutBlocksInput = {
+    create?: XOR<PageCreateWithoutBlocksInput, PageUncheckedCreateWithoutBlocksInput>
+    connectOrCreate?: PageCreateOrConnectWithoutBlocksInput
+    connect?: PageWhereUniqueInput
+  }
+
+  export type BlockUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<BlockCreateWithoutParentInput, BlockUncheckedCreateWithoutParentInput> | BlockCreateWithoutParentInput[] | BlockUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutParentInput | BlockCreateOrConnectWithoutParentInput[]
+    createMany?: BlockCreateManyParentInputEnvelope
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+  }
+
+  export type EnumBlockTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BlockType
+  }
+
+  export type BlockUpdateOneWithoutContentNestedInput = {
+    create?: XOR<BlockCreateWithoutContentInput, BlockUncheckedCreateWithoutContentInput>
+    connectOrCreate?: BlockCreateOrConnectWithoutContentInput
+    upsert?: BlockUpsertWithoutContentInput
+    disconnect?: BlockWhereInput | boolean
+    delete?: BlockWhereInput | boolean
+    connect?: BlockWhereUniqueInput
+    update?: XOR<XOR<BlockUpdateToOneWithWhereWithoutContentInput, BlockUpdateWithoutContentInput>, BlockUncheckedUpdateWithoutContentInput>
+  }
+
+  export type BlockUpdateManyWithoutParentNestedInput = {
+    create?: XOR<BlockCreateWithoutParentInput, BlockUncheckedCreateWithoutParentInput> | BlockCreateWithoutParentInput[] | BlockUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutParentInput | BlockCreateOrConnectWithoutParentInput[]
+    upsert?: BlockUpsertWithWhereUniqueWithoutParentInput | BlockUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: BlockCreateManyParentInputEnvelope
+    set?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    disconnect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    delete?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    update?: BlockUpdateWithWhereUniqueWithoutParentInput | BlockUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: BlockUpdateManyWithWhereWithoutParentInput | BlockUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: BlockScalarWhereInput | BlockScalarWhereInput[]
+  }
+
+  export type PageUpdateOneRequiredWithoutBlocksNestedInput = {
+    create?: XOR<PageCreateWithoutBlocksInput, PageUncheckedCreateWithoutBlocksInput>
+    connectOrCreate?: PageCreateOrConnectWithoutBlocksInput
+    upsert?: PageUpsertWithoutBlocksInput
+    connect?: PageWhereUniqueInput
+    update?: XOR<XOR<PageUpdateToOneWithWhereWithoutBlocksInput, PageUpdateWithoutBlocksInput>, PageUncheckedUpdateWithoutBlocksInput>
+  }
+
+  export type BlockUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<BlockCreateWithoutParentInput, BlockUncheckedCreateWithoutParentInput> | BlockCreateWithoutParentInput[] | BlockUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: BlockCreateOrConnectWithoutParentInput | BlockCreateOrConnectWithoutParentInput[]
+    upsert?: BlockUpsertWithWhereUniqueWithoutParentInput | BlockUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: BlockCreateManyParentInputEnvelope
+    set?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    disconnect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    delete?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    connect?: BlockWhereUniqueInput | BlockWhereUniqueInput[]
+    update?: BlockUpdateWithWhereUniqueWithoutParentInput | BlockUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: BlockUpdateManyWithWhereWithoutParentInput | BlockUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: BlockScalarWhereInput | BlockScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3839,61 +5479,123 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NoteCreateWithoutAuthorInput = {
+  export type NestedEnumBlockTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeFilter<$PrismaModel> | $Enums.BlockType
+  }
+
+  export type NestedEnumBlockTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlockType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockTypeFilter<$PrismaModel>
+    _max?: NestedEnumBlockTypeFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type PageCreateWithoutUserInput = {
     id?: string
-    title?: string | null
-    content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    blocks?: BlockCreateNestedManyWithoutPageInput
   }
 
-  export type NoteUncheckedCreateWithoutAuthorInput = {
+  export type PageUncheckedCreateWithoutUserInput = {
     id?: string
-    title?: string | null
-    content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    blocks?: BlockUncheckedCreateNestedManyWithoutPageInput
   }
 
-  export type NoteCreateOrConnectWithoutAuthorInput = {
-    where: NoteWhereUniqueInput
-    create: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput>
+  export type PageCreateOrConnectWithoutUserInput = {
+    where: PageWhereUniqueInput
+    create: XOR<PageCreateWithoutUserInput, PageUncheckedCreateWithoutUserInput>
   }
 
-  export type NoteCreateManyAuthorInputEnvelope = {
-    data: NoteCreateManyAuthorInput | NoteCreateManyAuthorInput[]
+  export type PageCreateManyUserInputEnvelope = {
+    data: PageCreateManyUserInput | PageCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type NoteUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: NoteWhereUniqueInput
-    update: XOR<NoteUpdateWithoutAuthorInput, NoteUncheckedUpdateWithoutAuthorInput>
-    create: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput>
+  export type PageUpsertWithWhereUniqueWithoutUserInput = {
+    where: PageWhereUniqueInput
+    update: XOR<PageUpdateWithoutUserInput, PageUncheckedUpdateWithoutUserInput>
+    create: XOR<PageCreateWithoutUserInput, PageUncheckedCreateWithoutUserInput>
   }
 
-  export type NoteUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: NoteWhereUniqueInput
-    data: XOR<NoteUpdateWithoutAuthorInput, NoteUncheckedUpdateWithoutAuthorInput>
+  export type PageUpdateWithWhereUniqueWithoutUserInput = {
+    where: PageWhereUniqueInput
+    data: XOR<PageUpdateWithoutUserInput, PageUncheckedUpdateWithoutUserInput>
   }
 
-  export type NoteUpdateManyWithWhereWithoutAuthorInput = {
-    where: NoteScalarWhereInput
-    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutAuthorInput>
+  export type PageUpdateManyWithWhereWithoutUserInput = {
+    where: PageScalarWhereInput
+    data: XOR<PageUpdateManyMutationInput, PageUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type NoteScalarWhereInput = {
-    AND?: NoteScalarWhereInput | NoteScalarWhereInput[]
-    OR?: NoteScalarWhereInput[]
-    NOT?: NoteScalarWhereInput | NoteScalarWhereInput[]
-    id?: StringFilter<"Note"> | string
-    title?: StringNullableFilter<"Note"> | string | null
-    content?: StringNullableFilter<"Note"> | string | null
-    authorId?: StringNullableFilter<"Note"> | string | null
-    createdAt?: DateTimeFilter<"Note"> | Date | string
-    updatedAt?: DateTimeFilter<"Note"> | Date | string
+  export type PageScalarWhereInput = {
+    AND?: PageScalarWhereInput | PageScalarWhereInput[]
+    OR?: PageScalarWhereInput[]
+    NOT?: PageScalarWhereInput | PageScalarWhereInput[]
+    id?: StringFilter<"Page"> | string
+    createdAt?: DateTimeFilter<"Page"> | Date | string
+    updatedAt?: DateTimeFilter<"Page"> | Date | string
+    userId?: StringFilter<"Page"> | string
   }
 
-  export type UserCreateWithoutNotesInput = {
+  export type BlockCreateWithoutPageInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parent?: BlockCreateNestedOneWithoutContentInput
+    content?: BlockCreateNestedManyWithoutParentInput
+  }
+
+  export type BlockUncheckedCreateWithoutPageInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parentId?: string | null
+    content?: BlockUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type BlockCreateOrConnectWithoutPageInput = {
+    where: BlockWhereUniqueInput
+    create: XOR<BlockCreateWithoutPageInput, BlockUncheckedCreateWithoutPageInput>
+  }
+
+  export type BlockCreateManyPageInputEnvelope = {
+    data: BlockCreateManyPageInput | BlockCreateManyPageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutPagesInput = {
     id?: string
     name?: string | null
     email: string
@@ -3901,7 +5603,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type UserUncheckedCreateWithoutNotesInput = {
+  export type UserUncheckedCreateWithoutPagesInput = {
     id?: string
     name?: string | null
     email: string
@@ -3909,23 +5611,50 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type UserCreateOrConnectWithoutNotesInput = {
+  export type UserCreateOrConnectWithoutPagesInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
+    create: XOR<UserCreateWithoutPagesInput, UserUncheckedCreateWithoutPagesInput>
   }
 
-  export type UserUpsertWithoutNotesInput = {
-    update: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
-    create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
+  export type BlockUpsertWithWhereUniqueWithoutPageInput = {
+    where: BlockWhereUniqueInput
+    update: XOR<BlockUpdateWithoutPageInput, BlockUncheckedUpdateWithoutPageInput>
+    create: XOR<BlockCreateWithoutPageInput, BlockUncheckedCreateWithoutPageInput>
+  }
+
+  export type BlockUpdateWithWhereUniqueWithoutPageInput = {
+    where: BlockWhereUniqueInput
+    data: XOR<BlockUpdateWithoutPageInput, BlockUncheckedUpdateWithoutPageInput>
+  }
+
+  export type BlockUpdateManyWithWhereWithoutPageInput = {
+    where: BlockScalarWhereInput
+    data: XOR<BlockUpdateManyMutationInput, BlockUncheckedUpdateManyWithoutPageInput>
+  }
+
+  export type BlockScalarWhereInput = {
+    AND?: BlockScalarWhereInput | BlockScalarWhereInput[]
+    OR?: BlockScalarWhereInput[]
+    NOT?: BlockScalarWhereInput | BlockScalarWhereInput[]
+    id?: StringFilter<"Block"> | string
+    type?: EnumBlockTypeFilter<"Block"> | $Enums.BlockType
+    properties?: JsonFilter<"Block">
+    parentId?: StringNullableFilter<"Block"> | string | null
+    pageId?: StringFilter<"Block"> | string
+  }
+
+  export type UserUpsertWithoutPagesInput = {
+    update: XOR<UserUpdateWithoutPagesInput, UserUncheckedUpdateWithoutPagesInput>
+    create: XOR<UserCreateWithoutPagesInput, UserUncheckedCreateWithoutPagesInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutNotesInput = {
+  export type UserUpdateToOneWithWhereWithoutPagesInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
+    data: XOR<UserUpdateWithoutPagesInput, UserUncheckedUpdateWithoutPagesInput>
   }
 
-  export type UserUpdateWithoutNotesInput = {
+  export type UserUpdateWithoutPagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
@@ -3933,7 +5662,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserUncheckedUpdateWithoutNotesInput = {
+  export type UserUncheckedUpdateWithoutPagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
@@ -3941,36 +5670,224 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NoteCreateManyAuthorInput = {
+  export type BlockCreateWithoutContentInput = {
     id?: string
-    title?: string | null
-    content?: string | null
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parent?: BlockCreateNestedOneWithoutContentInput
+    page: PageCreateNestedOneWithoutBlocksInput
+  }
+
+  export type BlockUncheckedCreateWithoutContentInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parentId?: string | null
+    pageId: string
+  }
+
+  export type BlockCreateOrConnectWithoutContentInput = {
+    where: BlockWhereUniqueInput
+    create: XOR<BlockCreateWithoutContentInput, BlockUncheckedCreateWithoutContentInput>
+  }
+
+  export type BlockCreateWithoutParentInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    content?: BlockCreateNestedManyWithoutParentInput
+    page: PageCreateNestedOneWithoutBlocksInput
+  }
+
+  export type BlockUncheckedCreateWithoutParentInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    pageId: string
+    content?: BlockUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type BlockCreateOrConnectWithoutParentInput = {
+    where: BlockWhereUniqueInput
+    create: XOR<BlockCreateWithoutParentInput, BlockUncheckedCreateWithoutParentInput>
+  }
+
+  export type BlockCreateManyParentInputEnvelope = {
+    data: BlockCreateManyParentInput | BlockCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PageCreateWithoutBlocksInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPagesInput
+  }
+
+  export type PageUncheckedCreateWithoutBlocksInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+  }
+
+  export type PageCreateOrConnectWithoutBlocksInput = {
+    where: PageWhereUniqueInput
+    create: XOR<PageCreateWithoutBlocksInput, PageUncheckedCreateWithoutBlocksInput>
+  }
+
+  export type BlockUpsertWithoutContentInput = {
+    update: XOR<BlockUpdateWithoutContentInput, BlockUncheckedUpdateWithoutContentInput>
+    create: XOR<BlockCreateWithoutContentInput, BlockUncheckedCreateWithoutContentInput>
+    where?: BlockWhereInput
+  }
+
+  export type BlockUpdateToOneWithWhereWithoutContentInput = {
+    where?: BlockWhereInput
+    data: XOR<BlockUpdateWithoutContentInput, BlockUncheckedUpdateWithoutContentInput>
+  }
+
+  export type BlockUpdateWithoutContentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parent?: BlockUpdateOneWithoutContentNestedInput
+    page?: PageUpdateOneRequiredWithoutBlocksNestedInput
+  }
+
+  export type BlockUncheckedUpdateWithoutContentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    pageId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BlockUpsertWithWhereUniqueWithoutParentInput = {
+    where: BlockWhereUniqueInput
+    update: XOR<BlockUpdateWithoutParentInput, BlockUncheckedUpdateWithoutParentInput>
+    create: XOR<BlockCreateWithoutParentInput, BlockUncheckedCreateWithoutParentInput>
+  }
+
+  export type BlockUpdateWithWhereUniqueWithoutParentInput = {
+    where: BlockWhereUniqueInput
+    data: XOR<BlockUpdateWithoutParentInput, BlockUncheckedUpdateWithoutParentInput>
+  }
+
+  export type BlockUpdateManyWithWhereWithoutParentInput = {
+    where: BlockScalarWhereInput
+    data: XOR<BlockUpdateManyMutationInput, BlockUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type PageUpsertWithoutBlocksInput = {
+    update: XOR<PageUpdateWithoutBlocksInput, PageUncheckedUpdateWithoutBlocksInput>
+    create: XOR<PageCreateWithoutBlocksInput, PageUncheckedCreateWithoutBlocksInput>
+    where?: PageWhereInput
+  }
+
+  export type PageUpdateToOneWithWhereWithoutBlocksInput = {
+    where?: PageWhereInput
+    data: XOR<PageUpdateWithoutBlocksInput, PageUncheckedUpdateWithoutBlocksInput>
+  }
+
+  export type PageUpdateWithoutBlocksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPagesNestedInput
+  }
+
+  export type PageUncheckedUpdateWithoutBlocksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PageCreateManyUserInput = {
+    id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type NoteUpdateWithoutAuthorInput = {
+  export type PageUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blocks?: BlockUpdateManyWithoutPageNestedInput
+  }
+
+  export type PageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blocks?: BlockUncheckedUpdateManyWithoutPageNestedInput
+  }
+
+  export type PageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NoteUncheckedUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type BlockCreateManyPageInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    parentId?: string | null
   }
 
-  export type NoteUncheckedUpdateManyWithoutAuthorInput = {
+  export type BlockUpdateWithoutPageInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parent?: BlockUpdateOneWithoutContentNestedInput
+    content?: BlockUpdateManyWithoutParentNestedInput
+  }
+
+  export type BlockUncheckedUpdateWithoutPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: BlockUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type BlockUncheckedUpdateManyWithoutPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BlockCreateManyParentInput = {
+    id?: string
+    type: $Enums.BlockType
+    properties: JsonNullValueInput | InputJsonValue
+    pageId: string
+  }
+
+  export type BlockUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    content?: BlockUpdateManyWithoutParentNestedInput
+    page?: PageUpdateOneRequiredWithoutBlocksNestedInput
+  }
+
+  export type BlockUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    pageId?: StringFieldUpdateOperationsInput | string
+    content?: BlockUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type BlockUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    properties?: JsonNullValueInput | InputJsonValue
+    pageId?: StringFieldUpdateOperationsInput | string
   }
 
 
