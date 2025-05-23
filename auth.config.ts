@@ -6,6 +6,12 @@ export const authConfig = {
     signIn: "/login",
   },
   callbacks: {
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub ?? "";
+      }
+      return session;
+    },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnAuthPages = ["/login", "/sign-up"].some((route) =>
@@ -22,7 +28,7 @@ export const authConfig = {
       }
 
       return isLoggedIn;
-    },
+    }
   },
   providers: [],
 } satisfies NextAuthConfig;

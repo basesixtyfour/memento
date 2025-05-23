@@ -1,24 +1,8 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { auth } from "@/auth";
 import { prisma } from "./prisma";
 import { hash } from "bcryptjs";
-
-export const authenticate = async (
-  _: string | undefined,
-  formData: FormData
-): Promise<string | undefined> => {
-  try {
-    await signIn("credentials", formData);
-    return undefined;
-  } catch (err) {
-    if (err === "CredentialsSignin") {
-      return "Invalid credentials";
-    }
-
-    throw err;
-  }
-};
 
 export const signUpUser = async (
   _: string | undefined,
@@ -49,5 +33,44 @@ export const signUpUser = async (
       return "An unexpected error occurred: " + err.message;
     }
     return "An unknown error occurred.";
+  }
+};
+
+export const updateUserName = async (
+  _: string | undefined,
+  formData: FormData
+): Promise<string | undefined> => {
+  try {
+    const name = formData.get("username") as string;
+    const session = await auth();
+    const email = session?.user?.email;
+
+    if (!name || !email) {
+      return "Missing fields";
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      return "user don't exist";
+    }
+
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        name,
+      },
+    });
+
+    return undefined;
+  } catch (err) {
+    console.log(err);
+    return "An error occur";
   }
 };

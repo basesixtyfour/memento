@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { signUpUser } from "../lib/action";
 
 const SignUpPage: React.FC = () => {
-  const [error, formAction, isPending] = useActionState(signUpUser, undefined);
+  const [error, formAction] = useActionState(signUpUser, undefined);
 
   return (
     <div className="flex justify-center items-center h-screen">

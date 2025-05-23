@@ -20,7 +20,7 @@ export async function verifyUserCredentials(
   password: string
 ): Promise<User | null> {
   const user = await getUser(email);
-
+  
   if (!user) return null;
 
   const passwordsMatch = await bcrypt.compare(password, user.password);
